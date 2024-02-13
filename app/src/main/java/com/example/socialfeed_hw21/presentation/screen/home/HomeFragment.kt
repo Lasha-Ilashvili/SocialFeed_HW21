@@ -36,11 +36,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
 
         feedState.data?.let {
-            it.post?.let {posts->
+            it.post?.let { posts ->
                 d("CHECK_DATA_POST", posts.toString())
             }
 
-            it.story?.let {stories->
+            it.story?.let { stories ->
                 d("CHECK_DATA_POST", stories.toString())
             }
         }
