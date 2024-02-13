@@ -1,6 +1,6 @@
-package com.example.socialfeed_hw21.data.service
+package com.example.socialfeed_hw21.data.service.post
 
-import com.example.socialfeed_hw21.data.model.PostDto
+import com.example.socialfeed_hw21.data.model.post.PostDto
 import retrofit2.Response
 import retrofit2.http.GET
 

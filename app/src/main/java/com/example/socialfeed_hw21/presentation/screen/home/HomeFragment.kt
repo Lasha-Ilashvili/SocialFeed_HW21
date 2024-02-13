@@ -7,9 +7,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.socialfeed_hw21.databinding.FragmentHomeBinding
 import com.example.socialfeed_hw21.presentation.base.BaseFragment
-import com.example.socialfeed_hw21.presentation.event.PostsEvent
+import com.example.socialfeed_hw21.presentation.event.FeedEvent
 import com.example.socialfeed_hw21.presentation.extension.showToast
-import com.example.socialfeed_hw21.presentation.state.PostsState
+import com.example.socialfeed_hw21.presentation.state.FeedState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -22,24 +22,27 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
     override fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.posts.collect {
+                viewModel.feed.collect {
                     handleState(it)
                 }
             }
         }
     }
 
-    private fun handleState(storeItemsState: PostsState) = with(binding) {
-//        binding.progressBar.visibility =
-//            if (storeItemsState.isLoading) View.VISIBLE else View.GONE
-
-        storeItemsState.errorMessage?.let {
-            root.showToast(storeItemsState.errorMessage)
-            viewModel.onEvent(PostsEvent.ResetErrorMessage)
+    private fun handleState(feedState: FeedState) = with(binding) {
+        feedState.errorMessage?.let {
+            root.showToast(feedState.errorMessage)
+            viewModel.onEvent(FeedEvent.ResetErrorMessage)
         }
 
-        storeItemsState.data?.let {
-            d("CHECK_DATA", it.toString())
+        feedState.data?.let {
+            it.post?.let {posts->
+                d("CHECK_DATA_POST", posts.toString())
+            }
+
+            it.story?.let {stories->
+                d("CHECK_DATA_POST", stories.toString())
+            }
         }
     }
 }

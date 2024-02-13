@@ -1,7 +1,8 @@
 package com.example.socialfeed_hw21.di
 
 import com.example.socialfeed_hw21.data.common.HandleResponse
-import com.example.socialfeed_hw21.data.service.PostsService
+import com.example.socialfeed_hw21.data.service.post.PostsService
+import com.example.socialfeed_hw21.data.service.story.StoriesService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -41,5 +42,11 @@ object AppModule {
     @Provides
     fun providePostsService(retrofit: Retrofit): PostsService {
         return retrofit.create(PostsService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideStoriesService(retrofit: Retrofit): StoriesService {
+        return retrofit.create(StoriesService::class.java)
     }
 }

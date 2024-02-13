@@ -4,9 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.socialfeed_hw21.data.common.Resource
 import com.example.socialfeed_hw21.domain.usecase.GetPostsUseCase
-import com.example.socialfeed_hw21.presentation.event.PostsEvent
+import com.example.socialfeed_hw21.domain.usecase.GetStoriesUseCase
+import com.example.socialfeed_hw21.presentation.event.FeedEvent
 import com.example.socialfeed_hw21.presentation.mapper.post.toPresentation
-import com.example.socialfeed_hw21.presentation.state.PostsState
+import com.example.socialfeed_hw21.presentation.model.Feed
+import com.example.socialfeed_hw21.presentation.state.FeedState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -16,46 +18,60 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getPosts: GetPostsUseCase
+    private val getPosts: GetPostsUseCase,
+    private val getStories: GetStoriesUseCase
 ) : ViewModel() {
 
-    private val _posts = MutableStateFlow(PostsState())
-    val posts get() = _posts.asStateFlow()
+    private val _feed = MutableStateFlow(FeedState())
+    val feed get() = _feed.asStateFlow()
 
     init {
-        setInitialList()
+        setStories()
+        setPosts()
     }
 
-    fun onEvent(event: PostsEvent) {
+    fun onEvent(event: FeedEvent) {
         when (event) {
-            is PostsEvent.ResetErrorMessage -> updateErrorMessage()
+            is FeedEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 
-    private fun setInitialList() {
+    private fun setStories() {
         viewModelScope.launch {
-            getPosts().collect {
+            getStories().collect {
                 when (it) {
                     is Resource.Success -> {
-                        _posts.update { currentState ->
-                            currentState.copy(data = it.data.map { domain ->
-                                domain.toPresentation()
-                            })
+                        _feed.update { currentState ->
+                            currentState.copy(data = Feed(story = it.data))
                         }
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+                }
+            }
+        }
+    }
 
-                    is Resource.Loading -> _posts.update { currentState ->
-                        currentState.copy(isLoading = it.loading)
+    private fun setPosts() {
+        viewModelScope.launch {
+            getPosts().collect {
+                when (it) {
+                    is Resource.Success -> {
+                        _feed.update { currentState ->
+                            currentState.copy(data = Feed(post = it.data.map { domain ->
+                                domain.toPresentation()
+                            }))
+                        }
                     }
+
+                    is Resource.Error -> updateErrorMessage(message = it.errorMessage)
                 }
             }
         }
     }
 
     private fun updateErrorMessage(message: String? = null) {
-        _posts.update { currentState ->
+        _feed.update { currentState ->
             currentState.copy(errorMessage = message)
         }
     }

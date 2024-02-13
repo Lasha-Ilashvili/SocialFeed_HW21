@@ -1,10 +1,10 @@
 package com.example.socialfeed_hw21.presentation.state
 
-import com.example.socialfeed_hw21.presentation.model.Post
+import com.example.socialfeed_hw21.presentation.model.Feed
 
 
-data class PostsState(
+data class FeedState(
     val isLoading: Boolean = false,
-    val data: List<Post>? = null,
+    val data: Feed? = null,
     val errorMessage: String? = null
 )

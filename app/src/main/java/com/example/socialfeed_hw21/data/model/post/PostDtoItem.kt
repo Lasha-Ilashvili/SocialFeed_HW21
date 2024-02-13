@@ -1,4 +1,4 @@
-package com.example.socialfeed_hw21.data.model
+package com.example.socialfeed_hw21.data.model.post
 
 
 import com.squareup.moshi.Json
