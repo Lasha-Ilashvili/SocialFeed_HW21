@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.socialfeed_hw21"
+    namespace = "com.example.socialfeed_hw22"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.socialfeed_hw21"
+        applicationId = "com.example.socialfeed_hw22"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
