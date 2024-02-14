@@ -7,7 +7,6 @@ import com.example.socialfeed_hw21.domain.usecase.GetPostsUseCase
 import com.example.socialfeed_hw21.domain.usecase.GetStoriesUseCase
 import com.example.socialfeed_hw21.presentation.event.FeedEvent
 import com.example.socialfeed_hw21.presentation.mapper.post.toPresentation
-import com.example.socialfeed_hw21.presentation.model.Feed
 import com.example.socialfeed_hw21.presentation.state.FeedState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,11 +41,15 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         _feed.update { currentState ->
-                            currentState.copy(data = Feed(story = it.data))
+                            currentState.copy(stories = it.data)
                         }
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+
+                    is Resource.Loading -> _feed.update { currentState ->
+                        currentState.copy(isLoading = it.loading)
+                    }
                 }
             }
         }
@@ -58,13 +61,17 @@ class HomeViewModel @Inject constructor(
                 when (it) {
                     is Resource.Success -> {
                         _feed.update { currentState ->
-                            currentState.copy(data = Feed(post = it.data.map { domain ->
+                            currentState.copy(posts = it.data.map { domain ->
                                 domain.toPresentation()
-                            }))
+                            })
                         }
                     }
 
                     is Resource.Error -> updateErrorMessage(message = it.errorMessage)
+
+                    is Resource.Loading -> _feed.update { currentState ->
+                        currentState.copy(isLoading = it.loading)
+                    }
                 }
             }
         }

@@ -1,6 +1,6 @@
 package com.example.socialfeed_hw21.presentation.screen.home
 
-import android.util.Log.d
+import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -9,6 +9,7 @@ import com.example.socialfeed_hw21.databinding.FragmentHomeBinding
 import com.example.socialfeed_hw21.presentation.base.BaseFragment
 import com.example.socialfeed_hw21.presentation.event.FeedEvent
 import com.example.socialfeed_hw21.presentation.extension.showToast
+import com.example.socialfeed_hw21.presentation.screen.home.adapter.HomeRecyclerViewAdapter
 import com.example.socialfeed_hw21.presentation.state.FeedState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -29,19 +30,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
         }
     }
 
-    private fun handleState(feedState: FeedState) = with(binding) {
-        feedState.errorMessage?.let {
-            root.showToast(feedState.errorMessage)
+    private fun handleState(feedState: FeedState) = with(feedState) {
+        binding.progressBar.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
+
+        errorMessage?.let {
+            binding.root.showToast(errorMessage)
             viewModel.onEvent(FeedEvent.ResetErrorMessage)
         }
 
-        feedState.data?.let {
-            it.post?.let { posts ->
-                d("CHECK_DATA_POST", posts.toString())
-            }
-
-            it.story?.let { stories ->
-                d("CHECK_DATA_POST", stories.toString())
+        if (!stories.isNullOrEmpty() && !posts.isNullOrEmpty()) {
+            binding.rvParent.adapter = HomeRecyclerViewAdapter().apply {
+                setStories(stories)
+                setPosts(posts)
             }
         }
     }

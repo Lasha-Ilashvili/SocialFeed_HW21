@@ -11,6 +11,7 @@ fun <Dto : Any, Domain : Any> Flow<Resource<Dto>>.asResource(
         when (it) {
             is Resource.Success -> Resource.Success(data = onSuccess.invoke(it.data))
             is Resource.Error -> Resource.Error(errorMessage = it.errorMessage)
+            is Resource.Loading -> Resource.Loading(loading = it.loading)
         }
     }
 }
