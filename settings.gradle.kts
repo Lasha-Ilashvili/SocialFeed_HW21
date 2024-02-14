@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SocialFeed_HW21"
+rootProject.name = "SocialFeed_HW22"
 include(":app")
  
