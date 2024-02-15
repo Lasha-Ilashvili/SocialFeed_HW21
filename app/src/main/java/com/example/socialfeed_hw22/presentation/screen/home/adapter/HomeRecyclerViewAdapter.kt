@@ -1,11 +1,14 @@
 package com.example.socialfeed_hw22.presentation.screen.home.adapter
 
 import android.view.LayoutInflater
+import android.view.View.GONE
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.socialfeed_hw22.databinding.PostItemBinding
 import com.example.socialfeed_hw22.databinding.StoryRecyclerBinding
 import com.example.socialfeed_hw22.domain.model.Story
+import com.example.socialfeed_hw22.presentation.extension.loadImage
 import com.example.socialfeed_hw22.presentation.model.Post
 
 class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -64,21 +67,43 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         }
     }
 
-    inner class StoryViewHolder(private val storyRecyclerBinding: StoryRecyclerBinding) :
-        RecyclerView.ViewHolder(storyRecyclerBinding.root) {
+    inner class StoryViewHolder(private val binding: StoryRecyclerBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-            storyRecyclerBinding.rvStories.adapter = StoriesRecyclerViewAdapter().apply {
+            binding.rvStories.adapter = StoriesRecyclerViewAdapter().apply {
                 setData(stories)
             }
         }
     }
 
-    inner class PostViewHolder(private val postItemBinding: PostItemBinding) :
-        RecyclerView.ViewHolder(postItemBinding.root) {
+    inner class PostViewHolder(private val binding: PostItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
+            val post = posts[adapterPosition - 1]
+            val owner = post.owner
+            val username = "${owner.firstName} ${owner.lastName}"
 
+            with(binding) {
+                if (owner.profile.isNullOrBlank()) {
+                    ivPfp.visibility = GONE
+                    resetUsernameMargin(tvUsername)
+                } else {
+                    ivPfp.loadImage(post.owner.profile)
+                }
+
+                tvUsername.text = username
+                tvDate.text = owner.postDate
+                tvCommentNumber.text = post.comments.toString()
+                tvLikeNumber.text = post.likes.toString()
+            }
+        }
+
+        private fun resetUsernameMargin(tvUsername: AppCompatTextView) {
+            (tvUsername.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                marginStart = 0
+            }
         }
     }
 }

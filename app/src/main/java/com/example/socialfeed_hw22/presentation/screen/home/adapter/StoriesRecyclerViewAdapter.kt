@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.socialfeed_hw22.databinding.StoryItemBinding
 import com.example.socialfeed_hw22.domain.model.Story
+import com.example.socialfeed_hw22.presentation.extension.loadImage
 
 class StoriesRecyclerViewAdapter :
     RecyclerView.Adapter<StoriesRecyclerViewAdapter.StoriesViewHolder>() {
@@ -31,15 +32,16 @@ class StoriesRecyclerViewAdapter :
         holder.bind()
     }
 
-    inner class StoriesViewHolder(private val storyItemBinding: StoryItemBinding) :
-        RecyclerView.ViewHolder(storyItemBinding.root) {
+    inner class StoriesViewHolder(private val binding: StoryItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-//            storyRecyclerBinding.rvStories.adapter
-//            rvNewCourses.adapter = NewCourseItemAdapter().apply {
-//                    setNewCourseData(stories)
-//                }
-//            }
+            val story = stories[adapterPosition]
+
+            with(binding) {
+                ivItem.loadImage(story.cover)
+                tvItem.text = story.title
+            }
         }
     }
 }

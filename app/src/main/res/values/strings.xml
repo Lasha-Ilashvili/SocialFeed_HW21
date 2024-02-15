@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SocialFeed_HW22</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="share">Share</string>
+    <string name="comments">Comments</string>
+    <string name="likes">Likes</string>
+    <string name="man_emoji">👨🏻</string>
+    <string name="write_comment">Write comment…</string>
 </resources>

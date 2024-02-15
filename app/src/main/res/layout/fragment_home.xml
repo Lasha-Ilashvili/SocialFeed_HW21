@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rectangle_page_bg"
     tools:context=".presentation.screen.home.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvParent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:clipToPadding="false"
         android:orientation="vertical"
+        android:paddingVertical="24dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <ProgressBar

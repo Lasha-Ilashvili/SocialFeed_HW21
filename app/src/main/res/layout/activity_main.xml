@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/rectangle_page_bg"
     tools:context=".presentation.screen.main.MainActivity">
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_nav_bg"
-        android:elevation="5dp"
+        android:translationY="0.7dp"
         android:paddingTop="15dp"
         android:paddingBottom="10dp"
         app:itemActiveIndicatorStyle="@android:color/transparent"
@@ -26,7 +27,7 @@
         android:id="@+id/nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toTopOf="@+id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
