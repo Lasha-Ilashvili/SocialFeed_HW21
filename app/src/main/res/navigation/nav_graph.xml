@@ -3,38 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/navigation">
+    app:startDestination="@id/homeFragment">
 
     <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.socialfeed_hw22.presentation.screen.home.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.socialfeed_hw22.presentation.screen.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.example.socialfeed_hw22.presentation.screen.notification.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.example.socialfeed_hw22.presentation.screen.message.MessageFragment"
+        android:label="fragment_message"
+        tools:layout="@layout/fragment_message" />
+    <fragment
         android:id="@+id/postDetailsFragment"
-        android:name="com.example.socialfeed_hw22.PostDetailsFragment"
+        android:name="com.example.socialfeed_hw22.presentation.screen.post_details.PostDetailsFragment"
         android:label="fragment_post_details"
         tools:layout="@layout/fragment_post_details" />
-    <navigation android:id="@+id/navigation"
-        app:startDestination="@id/homeFragment">
-        <fragment
-            android:id="@+id/homeFragment"
-            android:name="com.example.socialfeed_hw22.presentation.screen.home.HomeFragment"
-            android:label="fragment_home"
-            tools:layout="@layout/fragment_home">
-            <action
-                android:id="@+id/action_homeFragment_to_postDetailsFragment"
-                app:destination="@id/postDetailsFragment" />
-        </fragment>
-        <fragment
-            android:id="@+id/favoriteFragment"
-            android:name="com.example.socialfeed_hw22.presentation.screen.favorite.FavoriteFragment"
-            android:label="fragment_favorite"
-            tools:layout="@layout/fragment_favorite" />
-        <fragment
-            android:id="@+id/messageFragment"
-            android:name="com.example.socialfeed_hw22.presentation.screen.message.MessageFragment"
-            android:label="fragment_message"
-            tools:layout="@layout/fragment_message" />
-        <fragment
-            android:id="@+id/notificationFragment"
-            android:name="com.example.socialfeed_hw22.presentation.screen.notification.NotificationFragment"
-            android:label="fragment_notification"
-            tools:layout="@layout/fragment_notification" />
-    </navigation>
 </navigation>

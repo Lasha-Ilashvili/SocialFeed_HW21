@@ -5,6 +5,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.socialfeed_hw22.databinding.FragmentHomeBinding
 import com.example.socialfeed_hw22.presentation.base.BaseFragment
 import com.example.socialfeed_hw22.presentation.event.FeedEvent
@@ -19,6 +20,10 @@ import kotlinx.coroutines.launch
 class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     private val viewModel: HomeViewModel by viewModels()
+
+    override fun setListeners() {
+        findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostDetailsFragment())
+    }
 
     override fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
