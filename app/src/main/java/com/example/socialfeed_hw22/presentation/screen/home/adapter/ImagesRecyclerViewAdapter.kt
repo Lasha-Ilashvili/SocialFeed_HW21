@@ -2,6 +2,7 @@ package com.example.socialfeed_hw22.presentation.screen.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.socialfeed_hw22.databinding.ImageItemBinding
@@ -39,13 +40,29 @@ class ImagesRecyclerViewAdapter :
             val image = images[adapterPosition]
             binding.ivPostImages.loadImage(image)
 
+            setImageGrid()
+        }
+
+        private fun setImageGrid() {
             val layoutParams =
                 itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams;
 
-            if (adapterPosition == 0)
+            val dynamicSize = images.size % 3
+            val dynamicPosition = adapterPosition % 3
+
+            if (dynamicPosition == 0) {
                 layoutParams.isFullSpan = true
 
-            if (adapterPosition == 1 && images.size < 3)
+                if (dynamicSize == 1) {
+                    binding.ivPostImages.layoutParams.width = MATCH_PARENT
+
+                    (binding.cvBg.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                        marginEnd = 0
+                        marginStart = 100
+                    }
+                }
+            }
+            if (dynamicPosition == 1 && dynamicSize == 2)
                 layoutParams.isFullSpan = true
         }
     }
