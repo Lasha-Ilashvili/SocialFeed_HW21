@@ -98,6 +98,16 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 tvCommentNumber.text = post.comments.toString()
                 tvLikeNumber.text = post.likes.toString()
             }
+
+            setImageGrid(post.images)
+        }
+
+        private fun setImageGrid(images: List<String>?) {
+            images?.let {
+                binding.rvImages.adapter = ImagesRecyclerViewAdapter().apply {
+                    setData(it)
+                }
+            }
         }
 
         private fun resetUsernameMargin(tvUsername: AppCompatTextView) {
