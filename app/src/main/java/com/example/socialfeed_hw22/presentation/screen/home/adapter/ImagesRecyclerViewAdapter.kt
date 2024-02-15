@@ -42,11 +42,11 @@ class ImagesRecyclerViewAdapter :
             val layoutParams =
                 itemView.layoutParams as StaggeredGridLayoutManager.LayoutParams;
 
+            if (adapterPosition == 0)
+                layoutParams.isFullSpan = true
 
-            if(images.size > 1 && adapterPosition == 0) {
-                layoutParams.isFullSpan = true;
-            }
-
+            if (adapterPosition == 1 && images.size < 3)
+                layoutParams.isFullSpan = true
         }
     }
 }
