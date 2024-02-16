@@ -17,6 +17,8 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     private lateinit var stories: List<Story>
 
+    var onClick: ((Int) -> Unit)? = null
+
     private companion object {
         const val POSTS = 0
         const val STORIES = 1
@@ -99,12 +101,15 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
                 tvLikeNumber.text = post.likes.toString()
             }
 
-            setImageGrid(post.images)
+            setImageGrid(post.images, post)
         }
 
-        private fun setImageGrid(images: List<String>?) {
+        private fun setImageGrid(images: List<String>?, post: Post) {
             images?.let {
                 binding.rvImages.adapter = ImagesRecyclerViewAdapter().apply {
+                    onImageClick = {
+                        onClick?.invoke(post.id)
+                    }
                     setData(it)
                 }
             }

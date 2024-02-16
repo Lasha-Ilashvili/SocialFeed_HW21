@@ -2,11 +2,14 @@ package com.example.socialfeed_hw22.di
 
 import com.example.socialfeed_hw22.data.common.HandleResponse
 import com.example.socialfeed_hw22.data.repository.post.PostsRepositoryImpl
+import com.example.socialfeed_hw22.data.repository.post_details.PostDetailsRepositoryImpl
 import com.example.socialfeed_hw22.data.repository.story.StoriesRepositoryImpl
 import com.example.socialfeed_hw22.data.service.post.PostsService
+import com.example.socialfeed_hw22.data.service.post_details.PostDetailsService
 import com.example.socialfeed_hw22.data.service.story.StoriesService
-import com.example.socialfeed_hw22.domain.repository.PostsRepository
-import com.example.socialfeed_hw22.domain.repository.StoriesRepository
+import com.example.socialfeed_hw22.domain.repository.post.PostsRepository
+import com.example.socialfeed_hw22.domain.repository.post_details.PostDetailsRepository
+import com.example.socialfeed_hw22.domain.repository.story.StoriesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,6 +40,18 @@ object RepositoryModule {
     ): StoriesRepository {
         return StoriesRepositoryImpl(
             storiesService = storiesService,
+            handleResponse = handleResponse
+        )
+    }
+
+    @Singleton
+    @Provides
+    fun providePostDetailsRepository(
+        postDetailsService: PostDetailsService,
+        handleResponse: HandleResponse
+    ): PostDetailsRepository {
+        return PostDetailsRepositoryImpl(
+            postDetailsService = postDetailsService,
             handleResponse = handleResponse
         )
     }

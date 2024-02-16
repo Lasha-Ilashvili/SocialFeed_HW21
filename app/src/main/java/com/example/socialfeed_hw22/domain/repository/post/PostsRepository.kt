@@ -1,4 +1,4 @@
-package com.example.socialfeed_hw22.domain.repository
+package com.example.socialfeed_hw22.domain.repository.post
 
 import com.example.socialfeed_hw22.data.common.Resource
 import com.example.socialfeed_hw22.domain.model.PostDomain

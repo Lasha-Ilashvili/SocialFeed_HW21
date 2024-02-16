@@ -5,9 +5,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.socialfeed_hw22.data.common.Resource
 import com.example.socialfeed_hw22.domain.usecase.GetPostsUseCase
 import com.example.socialfeed_hw22.domain.usecase.GetStoriesUseCase
-import com.example.socialfeed_hw22.presentation.event.FeedEvent
+import com.example.socialfeed_hw22.presentation.event.home.HomeEvent
 import com.example.socialfeed_hw22.presentation.mapper.post.toPresentation
-import com.example.socialfeed_hw22.presentation.state.FeedState
+import com.example.socialfeed_hw22.presentation.state.home.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(
     private val getStories: GetStoriesUseCase
 ) : ViewModel() {
 
-    private val _feed = MutableStateFlow(FeedState())
+    private val _feed = MutableStateFlow(HomeState())
     val feed get() = _feed.asStateFlow()
 
     init {
@@ -29,9 +29,9 @@ class HomeViewModel @Inject constructor(
         setPosts()
     }
 
-    fun onEvent(event: FeedEvent) {
+    fun onEvent(event: HomeEvent) {
         when (event) {
-            is FeedEvent.ResetErrorMessage -> updateErrorMessage()
+            is HomeEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
 

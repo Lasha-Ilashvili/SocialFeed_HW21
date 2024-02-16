@@ -13,6 +13,8 @@ class ImagesRecyclerViewAdapter :
 
     private lateinit var images: List<String>
 
+    var onImageClick: (() -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImagesViewHolder {
         return ImagesViewHolder(
             ImageItemBinding.inflate(
@@ -35,6 +37,12 @@ class ImagesRecyclerViewAdapter :
 
     inner class ImagesViewHolder(private val binding: ImageItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener {
+                onImageClick?.invoke()
+            }
+        }
 
         fun bind() {
             val image = images[adapterPosition]

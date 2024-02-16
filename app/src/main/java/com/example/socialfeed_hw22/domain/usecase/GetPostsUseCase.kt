@@ -1,6 +1,6 @@
 package com.example.socialfeed_hw22.domain.usecase
 
-import com.example.socialfeed_hw22.domain.repository.PostsRepository
+import com.example.socialfeed_hw22.domain.repository.post.PostsRepository
 import javax.inject.Inject
 
 class GetPostsUseCase @Inject constructor(

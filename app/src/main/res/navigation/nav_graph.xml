@@ -33,5 +33,9 @@
         android:id="@+id/postDetailsFragment"
         android:name="com.example.socialfeed_hw22.presentation.screen.post_details.PostDetailsFragment"
         android:label="fragment_post_details"
-        tools:layout="@layout/fragment_post_details" />
+        tools:layout="@layout/fragment_post_details" >
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

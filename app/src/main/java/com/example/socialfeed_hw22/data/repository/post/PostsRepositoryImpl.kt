@@ -6,7 +6,7 @@ import com.example.socialfeed_hw22.data.mapper.base.asResource
 import com.example.socialfeed_hw22.data.mapper.post.toDomain
 import com.example.socialfeed_hw22.data.service.post.PostsService
 import com.example.socialfeed_hw22.domain.model.PostDomain
-import com.example.socialfeed_hw22.domain.repository.PostsRepository
+import com.example.socialfeed_hw22.domain.repository.post.PostsRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
