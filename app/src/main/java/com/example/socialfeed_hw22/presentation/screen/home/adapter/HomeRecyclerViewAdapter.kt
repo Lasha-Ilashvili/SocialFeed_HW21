@@ -2,13 +2,15 @@ package com.example.socialfeed_hw22.presentation.screen.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View.GONE
+import android.view.View.OVER_SCROLL_NEVER
 import android.view.ViewGroup
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.socialfeed_hw22.databinding.PostItemBinding
 import com.example.socialfeed_hw22.databinding.StoryRecyclerBinding
 import com.example.socialfeed_hw22.domain.model.Story
 import com.example.socialfeed_hw22.presentation.extension.loadImage
+import com.example.socialfeed_hw22.presentation.extension.resetMarginStart
 import com.example.socialfeed_hw22.presentation.model.Post
 
 class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -90,7 +92,7 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             with(binding) {
                 if (owner.profile.isNullOrBlank()) {
                     ivPfp.visibility = GONE
-                    resetUsernameMargin(tvUsername)
+                    tvUsername.resetMarginStart()
                 } else {
                     ivPfp.loadImage(post.owner.profile)
                 }
@@ -104,20 +106,19 @@ class HomeRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             setImageGrid(post.images, post)
         }
 
-        private fun setImageGrid(images: List<String>?, post: Post) {
+        private fun setImageGrid(images: List<String>?, post: Post) = with(binding) {
             images?.let {
-                binding.rvImages.adapter = ImagesRecyclerViewAdapter().apply {
+                rvImages.layoutManager =
+                    StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL)
+
+                rvImages.overScrollMode = OVER_SCROLL_NEVER
+
+                rvImages.adapter = ImagesRecyclerViewAdapter().apply {
                     onImageClick = {
                         onClick?.invoke(post.id)
                     }
                     setData(it)
                 }
-            }
-        }
-
-        private fun resetUsernameMargin(tvUsername: AppCompatTextView) {
-            (tvUsername.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                marginStart = 0
             }
         }
     }
