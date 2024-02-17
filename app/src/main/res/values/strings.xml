@@ -7,4 +7,6 @@
     <string name="likes">Likes</string>
     <string name="man_emoji">👨🏻</string>
     <string name="write_comment">Write comment…</string>
+    <string name="channel_id">channel_id</string>
+    <string name="channel_name">RemoteMessaging</string>
 </resources>

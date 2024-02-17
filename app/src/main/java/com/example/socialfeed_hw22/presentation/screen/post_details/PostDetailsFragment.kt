@@ -94,4 +94,10 @@ class PostDetailsFragment :
     private fun hideBottomNavBar() {
         requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.GONE
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        requireActivity().findViewById<BottomNavigationView>(R.id.bottomNav).visibility = View.VISIBLE
+    }
 }

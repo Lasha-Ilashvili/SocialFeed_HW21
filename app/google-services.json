@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1047804651630",
+    "project_id": "socialfeedapp-fc649",
+    "storage_bucket": "socialfeedapp-fc649.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1047804651630:android:a6c86711c82012f6315e7f",
+        "android_client_info": {
+          "package_name": "com.example.socialfeed_hw22"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCB4Hvwdt9QJ0epNowXYeDzlmAfRMaG2YM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
