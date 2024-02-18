@@ -1,5 +1,6 @@
 package com.example.socialfeed_hw22.di
 
+import com.example.socialfeed_hw22.BuildConfig.BASE_URL
 import com.example.socialfeed_hw22.data.common.HandleResponse
 import com.example.socialfeed_hw22.data.service.post.PostsService
 import com.example.socialfeed_hw22.data.service.post_details.PostDetailsService
@@ -10,6 +11,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -18,25 +21,38 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    private const val BASE_URL = "https://run.mocky.io/v3/"
-
     @Singleton
     @Provides
-    fun provideHandleResponse(): HandleResponse {
-        return HandleResponse()
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        return OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
     }
 
     @Singleton
     @Provides
-    fun provideRetrofitClient(): Retrofit {
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+
+    @Singleton
+    @Provides
+    fun provideRetrofitClient(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(okHttpClient)
             .addConverterFactory(
                 MoshiConverterFactory.create(
                     Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
                 )
             )
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideHandleResponse(): HandleResponse {
+        return HandleResponse()
     }
 
     @Singleton
