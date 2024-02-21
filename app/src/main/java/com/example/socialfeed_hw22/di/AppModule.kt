@@ -3,7 +3,6 @@ package com.example.socialfeed_hw22.di
 import com.example.socialfeed_hw22.BuildConfig.BASE_URL
 import com.example.socialfeed_hw22.data.common.HandleResponse
 import com.example.socialfeed_hw22.data.service.post.PostsService
-import com.example.socialfeed_hw22.data.service.post_details.PostDetailsService
 import com.example.socialfeed_hw22.data.service.story.StoriesService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -65,11 +64,5 @@ object AppModule {
     @Provides
     fun provideStoriesService(retrofit: Retrofit): StoriesService {
         return retrofit.create(StoriesService::class.java)
-    }
-
-    @Singleton
-    @Provides
-    fun providePostDetailsService(retrofit: Retrofit): PostDetailsService {
-        return retrofit.create(PostDetailsService::class.java)
     }
 }

@@ -24,4 +24,12 @@ class PostsRepositoryImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getPostDetails(id: Int): Flow<Resource<PostDomain>> {
+        return handleResponse.safeApiCall {
+            postsService.getPostDetails(id)
+        }.asResource { dto ->
+            dto.toDomain()
+        }
+    }
 }
