@@ -21,6 +21,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(FragmentHomeBinding::infl
 
     private val viewModel: HomeViewModel by viewModels()
 
+    override fun setUp() {
+        viewModel.onEvent(HomeEvent.SetStories)
+        viewModel.onEvent(HomeEvent.SetPosts)
+    }
+
     override fun observe() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

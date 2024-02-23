@@ -1,6 +1,7 @@
 package com.example.socialfeed_hw22.di
 
 import com.example.socialfeed_hw22.BuildConfig.BASE_URL
+import com.example.socialfeed_hw22.BuildConfig.DEBUG
 import com.example.socialfeed_hw22.data.common.HandleResponse
 import com.example.socialfeed_hw22.data.service.post.PostsService
 import com.example.socialfeed_hw22.data.service.story.StoriesService
@@ -23,7 +24,11 @@ object AppModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
-        return OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
+        val builder = OkHttpClient.Builder()
+
+        if (DEBUG) builder.addInterceptor(loggingInterceptor)
+
+        return builder.build()
     }
 
     @Singleton

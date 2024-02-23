@@ -10,7 +10,6 @@ import com.example.socialfeed_hw22.presentation.mapper.post.toPresentation
 import com.example.socialfeed_hw22.presentation.state.home.HomeState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -23,15 +22,12 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _feed = MutableStateFlow(HomeState())
-    val feed: SharedFlow<HomeState> = _feed.asStateFlow()
-
-    init {
-        setStories()
-        setPosts()
-    }
+    val feed get() = _feed.asStateFlow()
 
     fun onEvent(event: HomeEvent) {
         when (event) {
+            is HomeEvent.SetStories -> setStories()
+            is HomeEvent.SetPosts -> setPosts()
             is HomeEvent.ResetErrorMessage -> updateErrorMessage()
         }
     }
